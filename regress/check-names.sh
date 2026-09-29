@@ -30,7 +30,7 @@ must_equal()
 	[ "$got" = "$want" ] || fail "got '$got', expected '$want'"
 }
 
-$TMUX new-session -d -x 80 -y 24 || exit 1
+$TMUX new-session -d -x 80 -y 24 /bin/sh || exit 1
 $TMUX set-option -qg allow-set-title on || exit 1
 $TMUX set-option -qg allow-rename on || exit 1
 $TMUX set-option -qg automatic-rename off || exit 1
