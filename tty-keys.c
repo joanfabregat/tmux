@@ -930,13 +930,17 @@ first_key:
 		/* Look for a key without the escape. */
 		n = tty_keys_next1(tty, buf + 1, len - 1, &key, &size, expired);
 		if (n == 0) {	/* found */
-			if (key & KEYC_IMPLIED_META) {
+			if ((key & KEYC_IMPLIED_META) ||
+			    key == KEYC_FOCUS_IN ||
+			    key == KEYC_FOCUS_OUT) {
 				/*
 				 * We want the escape key as well as the xterm
 				 * key, because the xterm sequence implicitly
 				 * includes the escape (so if we see
 				 * \033\033[1;3D we know it is an Escape
-				 * followed by M-Left, not just M-Left).
+				 * followed by M-Left, not just M-Left). A
+				 * focus report never has a Meta modifier, so
+				 * the same applies.
 				 */
 				key = '\033';
 				size = 1;
